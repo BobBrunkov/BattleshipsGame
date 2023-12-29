@@ -37,17 +37,17 @@ void createFirstArray(int arr1[7][7], int size)
 		int rC2 = rand() % 8;
 	} while (arr1[rR2][rC2] == 1 || arr1[rR2 + 1][rC2] == 1);
 	arr1[rR2][rC2] = 1;
-	arr1[rR2 - 1][rC2] = 1;
+	arr1[rR2 + 1][rC2] = 1;
 
-	int rR3 = rand() % 5;
+	int rR3 = rand() % 6;
 	int rC3 = rand() % 8;
 	do
 	{
-		int rR3 = rand() % 5;
+		int rR3 = rand() % 6;
 		int rC3 = rand() % 8;
 	} while (arr1[rR3][rC3] == 1 || arr1[rR3 + 1][rC3] == 1);
 	arr1[rR3][rC3] = 1;
-	arr1[rR3 - 1][rC3] = 1;
+	arr1[rR3 + 1][rC3] = 1;
 
 	int rR4 = rand() % 8;
 	int rC4 = rand() % 8;
@@ -139,53 +139,64 @@ int main()
 	string username;
 	victory = 0;
 	moves = 0;
+	char playAgain;
 
-	createFirstArray(arr1, size);
-	createSecondArray(arr2, arr1);
-
-	cout << "Welcome to the Battleships Game" << endl << "Write your name: ";
-	cin >> username;
-	cout << endl << "Hello " << username << endl << "Press Enter to continue...";
-	cin.ignore();
-	cin.get();
-
-	while (victory == 0)
+	do
 	{
-		system("cls");
-		showSecondArray(arr2);
-		cout << endl;
-		do
-		{
-			cout << "Enter ROW and COLUMN coordinates (0-6). H - Hit, M - Miss" << endl;
-			cin >> a >> b;
-		} while (a > 6 || a < 0 || b > 6 || b < 0);
-		cout << endl;
-		checkUserInput(a, b, arr1, arr2);
-		moves++;
+		createFirstArray(arr1, size);
+		createSecondArray(arr2, arr1);
 
-		cout << endl << "Press Enter to continue...";
+		cout << "Welcome to the Battleships Game" << endl << "Write your name: ";
+		cin >> username;
+		cout << endl << "Hello " << username << endl << "Press Enter to continue...";
 		cin.ignore();
 		cin.get();
 
-		int countVictory = 0;
-		for (int i = 0; i < 7; i++)
+		while (victory == 0)
 		{
-			for (int j = 0; j < 7; j++)
+			system("cls");
+			showSecondArray(arr2);
+			cout << endl;
+			do
 			{
-				if (arr2[i][j] == 'H')
+				cout << "Enter ROW and COLUMN coordinates (0-6). H - Hit, M - Miss" << endl;
+				cin >> a >> b;
+			} while (a > 6 || a < 0 || b > 6 || b < 0);
+			cout << endl;
+			checkUserInput(a, b, arr1, arr2);
+			moves++;
+
+			cout << endl << "Press Enter to continue...";
+			cin.ignore();
+			cin.get();
+
+			int countVictory = 0;
+			for (int i = 0; i < 7; i++)
+			{
+				for (int j = 0; j < 7; j++)
 				{
-					countVictory++;
+					if (arr2[i][j] == 'H')
+					{
+						countVictory++;
+					}
 				}
 			}
+			if (countVictory >= 10)
+			{
+				victory++;
+			}
 		}
-		if (countVictory >= 10)
-		{
-			victory++;
-		}
-	}
 
-	cout << endl << "Amount of hits: " << moves << endl;
-	cout << "You win! You sank all the ships" << endl << endl;
+		cout << endl << "Amount of hits: " << moves << endl;
+		cout << "You win! You sank all the ships" << endl << endl;
+
+		cout << "Do you want to play again? (Y/N): ";
+		cin >> playAgain;
+
+		victory = 0;
+		moves = 0;
+
+	} while (toupper(playAgain) == 'Y');
 
 	return 0;
 }
