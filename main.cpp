@@ -26,8 +26,8 @@ void createFirstArray(int arr1[7][7], int size)
 	int rR1 = rand() % 5;
 	int rC1 = rand() % 8;
 	arr1[rR1][rC1] = 1;
-	arr1[rR1 - 1][rC1] = 1;
-	arr1[rR1 - 2][rC1] = 1;
+	arr1[rR1 + 1][rC1] = 1;
+	arr1[rR1 + 2][rC1] = 1;
 
 	int rR2 = rand() % 6;
 	int rC2 = rand() % 8;
@@ -35,7 +35,7 @@ void createFirstArray(int arr1[7][7], int size)
 	{
 		int rR2 = rand() % 6;
 		int rC2 = rand() % 8;
-	} while (arr1[rR2][rC2] == 1 || arr1[rR2 - 1][rC2] == 1);
+	} while (arr1[rR2][rC2] == 1 || arr1[rR2 + 1][rC2] == 1);
 	arr1[rR2][rC2] = 1;
 	arr1[rR2 - 1][rC2] = 1;
 
@@ -45,7 +45,7 @@ void createFirstArray(int arr1[7][7], int size)
 	{
 		int rR3 = rand() % 5;
 		int rC3 = rand() % 8;
-	} while (arr1[rR3][rC3] == 1 || arr1[rR3 - 1][rC3] == 1);
+	} while (arr1[rR3][rC3] == 1 || arr1[rR3 + 1][rC3] == 1);
 	arr1[rR3][rC3] = 1;
 	arr1[rR3 - 1][rC3] = 1;
 
@@ -92,15 +92,22 @@ void createSecondArray(char arr2[7][7], int arr1[7][7])
 	{
 		for (int j = 0; j < 7; j++)
 		{
-			arr2[i][j] = 'X';
+			arr2[i][j] = '+';
 		}
 	}
 }
 
 void showSecondArray(char arr2[7][7])
 {
+	cout << "  ";
 	for (int i = 0; i < 7; i++)
 	{
+		cout << i << " ";
+	}
+	cout << endl;
+	for (int i = 0; i < 7; i++)
+	{
+		cout << i << "|";
 		for (int j = 0; j < 7; j++)
 		{
 			cout << arr2[i][j] << " ";
@@ -155,6 +162,7 @@ int main()
 		cout << endl;
 		checkUserInput(a, b, arr1, arr2);
 		moves++;
+
 		cout << endl << "Press Enter to continue...";
 		cin.ignore();
 		cin.get();
